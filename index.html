@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Birthday Gift Box WebAR</title>
+  <!-- Load A-Frame library -->
+  <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+  <!-- Load AR.js for marker-based AR -->
+  <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+  <!-- Load particle system component for heart particles -->
+  <script src="https://unpkg.com/aframe-particle-system-component@1.0.5/dist/aframe-particle-system-component.min.js"></script>
+</head>
+<body style="margin: 0; overflow: hidden;">
+  <!-- A-Frame scene with AR.js for marker tracking -->
+  <a-scene arjs="sourceType: webcam; trackingMethod: best; debugUIEnabled: false;" embedded>
+    <!-- Camera for AR view -->
+    <a-camera position="0 0 0" look-controls></a-camera>
+
+    <!-- Instruction text displayed before marker is detected -->
+    <a-text id="instruction" value="Arahkan kamera ke kartu ulang tahun kamu!" position="0 0 -1" align="center" color="#FFFFFF" font="mozillavr" scale="0.5 0.5 0.5">
+      <!-- Comment: This text is shown initially and will be hidden when the marker is detected. -->
+    </a-text>
+
+    <!-- Marker entity using a custom .patt file (replace 'path/to/your/marker.patt' with your actual .patt file URL) -->
+    <!-- Note: For demo, you can use preset markers like 'hiro' by changing to preset="hiro". But for custom, use url to .patt file. -->
+    <a-marker id="birthday-marker" preset="hiro" url="path/to/your/marker.patt">
+      <!-- Comment: This marker detects the AR marker. Replace 'path/to/your/marker.patt' with the URL of your .patt file (e.g., hosted online). If using preset, remove url and use preset="hiro". -->
+
+      <!-- 3D Gift Box Model (using a box primitive as a simple gift box) -->
+      <a-box id="gift-box" position="0 0 0" width="0.5" height="0.5" depth="0.5" color="#FF69B4" material="roughness: 0.5;">
+        <!-- Comment: This is the gift box model. Initially closed. -->
+
+        <!-- Animation: Shake the box briefly, then open it (scale to simulate opening) -->
+        <a-animation attribute="position" dur="500" to="0.1 0 0" repeat="3" direction="alternate" begin="markerFound">
+          <!-- Comment: Shake animation (vibrate left-right) for 500ms, repeats 3 times. -->
+        </a-animation>
+        <a-animation attribute="scale" dur="1000" to="1.2 0.1 1.2" begin="markerFound" delay="1500">
+          <!-- Comment: After shake, scale down height to simulate opening the box. -->
+        </a-animation>
+      </a-box>
+
+      <!-- Heart particles emerging from the box (pink hearts) -->
+      <a-entity id="hearts" particle-system="preset: dust; particleCount: 100; color: #FF1493; size: 0.05; accelerationValue: 0 0.5 0; velocityValue: 0 1 0;" visible="false">
+        <!-- Comment: Particle system for pink hearts. Initially hidden, shown after box opens. -->
+      </a-entity>
+
+      <!-- 3D Text "Happy Birthday, Sayang 💖" emerging from the box -->
+      <a-text id="birthday-text" value="Happy Birthday, Sayang 💖" position="0 0.5 0" align="center" color="#FF69B4" font="mozillavr" scale="0.3 0.3 0.3" visible="false">
+        <!-- Comment: 3D text for birthday message. Initially hidden, shown after box opens. -->
+        <!-- Animation: Fade in and float up -->
+        <a-animation attribute="position" dur="2000" to="0 1 0" begin="showText">
+          <!-- Comment: Text floats up slowly. -->
+        </a-animation>
+      </a-text>
+
+      <!-- Romantic soft audio that plays automatically when animation starts -->
+      <a-sound id="romantic-audio" src="path/to/your/romantic-music.mp3" autoplay="false" loop="true" volume="0.3">
+        <!-- Comment: Romantic audio. Replace 'path/to/your/romantic-music.mp3' with your MP3 URL. Autoplay is set to false initially, triggered by marker detection. -->
+      </a-sound>
+    </a-marker>
+  </a-scene>
+
+  <!-- JavaScript to handle marker detection and trigger animations/audio -->
+  <script>
+    // Get references to elements
+    const marker = document.getElementById('birthday-marker');
+    const instruction = document.getElementById('instruction');
+    const hearts = document.getElementById('hearts');
+    const birthdayText = document.getElementById('birthday-text');
+    const audio = document.getElementById('romantic-audio');
+
+    // Event listener for when marker is found
+    marker.addEventListener('markerFound', function() {
+      // Hide instruction text
+      instruction.setAttribute('visible', 'false');
+      
+      // Start box shake animation (already defined in HTML)
+      // After shake, show hearts and text, play audio
+      setTimeout(() => {
+        hearts.setAttribute('visible', 'true');
+        birthdayText.setAttribute('visible', 'true');
+        birthdayText.emit('showText'); // Trigger text animation
+        audio.components.sound.playSound(); // Play romantic audio
+      }, 2000); // Delay to match box opening animation
+    });
+
+    // Optional: Hide elements if marker is lost
+    marker.addEventListener('markerLost', function() {
+      // Reset visibility if needed (for re-detection)
+      hearts.setAttribute('visible', 'false');
+      birthdayText.setAttribute('visible', 'false');
+      audio.components.sound.pauseSound();
+    });
+  </script>
+</body>
+</html>
