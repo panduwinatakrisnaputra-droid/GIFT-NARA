@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>GALLERY OF NARA</title>
+    <script src="https://aframe.io/releases/1.4.1/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.157.0/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aframe-physics-system@4.0.1/dist/aframe-physics-system.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aframe-gamepad-controls@0.1.0/dist/aframe-gamepad-controls.min.js"></script>
+    <audio controls autoplay loop>
+        <source src="audio/HER.mp3" type="audio/mpeg">
+        Browser Anda tidak mendukung elemen audio HTML5.
+    </audio>
+</head>
+<body>
+    <a-scene physics="debug: true">
+        <!-- Preload Textures -->
+        <a-assets>
+            <img id="floorTexture" src="assets/texture/floor.jpg" />
+            <img id="wallTexture" src="assets/texture/wall.jpg" />
+            <img id="ceilingTexture" src="assets/texture/ceiling.jpg" />
+            <img id="art1" src="assets/images/gambar1.jpg" />
+            <img id="art2" src="assets/images/gambar2.jpg" />
+            <img id="art3" src="assets/images/gambar3.jpg" />
+            <img id="art4" src="assets/images/gambar4.jpg" />
+            <img id="art5" src="assets/images/gambar5.jpg" />
+            <img id="art6" src="assets/images/gambar6.jpg" />
+            <video id="vid1" src="assets/images/video1.mp4" autoplay loop muted playsinline></video>
+            <video id="vid2" src="assets/images/video2.mp4" autoplay loop muted playsinline></video>
+            <video id="vid3" src="assets/images/video3.mp4" autoplay loop muted playsinline></video>
+            <video id="vid4" src="assets/images/video4.mp4" autoplay loop muted playsinline></video>
+        </a-assets>
+
+        <!-- Floor -->
+        <a-plane position="0 0 0" rotation="-90 0 0" width="20" height="20" src="#floorTexture" repeat="5 5" static-body>
+        </a-plane>
+        <a-plane position="0 7 0" rotation="90 0 0" width="20" height="20" src="#ceilingTexture" repeat="5 5" static-body>
+        </a-plane>
+
+         <!-- Walls -->
+        <a-box position="0 2 -10" width="20" height="15" depth="0.1" src="#wallTexture" repeat="5 2" static-body>
+        </a-box>
+        <a-box position="-10 2 0" width="0.1" height="15" depth="20" src="#wallTexture" repeat="5 2" static-body>
+        </a-box>
+        <a-box position="10 2 0" width="0.1" height="15" depth="20" src="#wallTexture" repeat="5 2" static-body>
+        </a-box>
+        <a-box position="0 2 10" width="20" height="15" depth="0.1" src="#wallTexture" repeat="5 2" static-body>
+        </a-box>
+
+        <!-- Ambient Lighting -->
+        <a-light type="ambient" color="#ffdcb2" intensity="0.3">
+        </a-light>
+
+        <!-- Spotlights on Art -->
+        
+
+        <!-- Subtle Ceiling Light -->
+        <a-light type="point" color="#ffe6cc" intensity="0.5" position="0 6 0">
+        </a-light>
+
+        <!-- Art Pieces -->
+        
+          <a-box class="clickable" details="HAPPY BIRTHDAY HONEY" 
+              position="0 3.5 -9.9" width="4.2" height="6.2" depth="0.2" color="#3b3b3b" dynamic-body>
+              <a-plane id="videoPlane" src="#vid1" position="0 0 0.11" width="4" height="6" material="shader: standard; roughness: 1"></a-plane>
+              <script>
+                    document.querySelector('#videoPlane').addEventListener('click', function () {
+                    const vid = document.querySelector('#vid1');
+                    vid.play();
+                });
+          </script>
+              <a-entity class="art-info" position="6 0 0" scale="2.5 2.5 2.5" text="value: HAPPY BIRTHDAY HONEY; color: white; width: 4;  align: center font : #myFont " visible="false"></a-entity>
+          </a-box>
+          
+  
+          <!-- Left Wall Art -->
+          <a-box class="clickable" details="26 / 10 / 2025" position="-9.8 4 -5" width="3.2" height="3.2" depth="0.2" rotation="0 90 0" color="#3b3b3b" static-body>
+              <a-plane src="#art1" position="0 0 0.11" width="3" height="3" material="shader: standard; roughness: 1"></a-plane>
+              <a-entity class="art-info" position="0 -2 0" text="The Lament for Icarus: A painting by Herbert James Draper; color: white; width: 4; align: center" visible="false"></a-entity>
+          </a-box>
+          <a-box class="clickable" details="26 / 10 / 2025" position="-9.8 4 0" width="3.2" height="3.2" depth="0.2" rotation="0 90 0" color="#3b3b3b" static-body>
+              <a-plane id="videoPlane" src="#vid3" position="0 0 0.11" width="3" height="3" material="shader: standard; roughness: 1"></a-plane>
+              <script>
+                    document.querySelector('#videoPlane').addEventListener('click', function () {
+                    const vid = document.querySelector('#vid3');
+                    vid.play();
+                });
+          </script>  
+              <a-entity class="art-info" position="0 -2 0" text="Balinese Procession: By maestro Lee Man Fong; color: white; width: 4; align: center" visible="false"></a-entity>
+          </a-box>
+          <a-box class="clickable" details="26 / 10 / 2025" position="-9.8 4 5" width="3.2" height="3.2" depth="0.2" rotation="0 90 0" color="#3b3b3b" static-body>
+              <a-plane src="#art2" position="0 0 0.11" width="3" height="3" material="shader: standard; roughness: 1"></a-plane>
+              <a-entity class="art-info" position="0 -2 0" text="The Blue Boat: A tranquil masterpiece by Winslow Homer; color: white; width: 4; align: center" visible="false"></a-entity>
+          </a-box>
+  
+          <!-- Right Wall Art -->
+          <a-box class="clickable" details="2 / 11 / 2025" position="9.8 4 -5" width="3.2" height="3.2" depth="0.2" rotation="0 270 0" color="#3b3b3b" static-body>
+              <a-plane src="#art5" position="0 0 0.11" width="3" height="3" material="shader: standard; roughness: 1"></a-plane>
+              <a-entity class="art-info" position="0 -2 0" text="Boreas: A captivating oil paintng by John William Waterhouse; color: white; width: 4; align: center" visible="false"></a-entity>
+          </a-box>
+          <a-box class="clickable" details="2 / 11 / 2025" position="9.8 4 0" width="3.2" height="3.2" depth="0.2" rotation="0 270 0" color="#3b3b3b" static-body>
+              <a-plane id="videoPlane" src="#vid2" position="0 0 0.11" width="3" height="3" material="shader: standard; roughness: 1"></a-plane>
+          <script>
+                    document.querySelector('#videoPlane').addEventListener('click', function () {
+                    const vid = document.querySelector('#vid2');
+                    vid.play();
+                });
+          </script>    
+              <a-entity class="art-info" position="0 -2 0" text="The Reverend Robert Walker Skating on Duddingston Loch: A timeless potrait by Henry Raeburn; color: white; width: 4; align: center" visible="false"></a-entity>
+          </a-box>
+          <a-box class="clickable" details="2 / 11 / 2025" position="9.8 4 5" width="3.2" height="3.2" depth="0.2" rotation="0 270 0" color="#3b3b3b" static-body>
+              <a-plane src="#art6" position="0 0 0.11" width="3" height="3" material="shader: standard; roughness: 1"></a-plane>
+              <a-entity class="art-info" position="0 -2 0" text="Roses and Jasmine in a Delft Vase: A floral masterpiece by Pierre-Auguste Renoir; color: white; width: 4; align: center" visible="false"></a-entity>
+          </a-box>
+  
+          <!-- Behind Wall Art -->
+          <a-box class="clickable" details="2/ 11 / 2025" 
+          position="-5 3.5 9.9" width="2.2" height="4.2" depth="0.2" rotation="0 180 0" color="#3b3b3b" static-body>
+            <a-plane src="#art3" position="0 0 0.11" width="2" height="4" material="shader: standard; roughness: 1"></a-plane>
+            <a-entity class="art-info" position="0 -2.5 0" text="The Entrance to the Grand Canal: A majestic cityscape by Canaletto; color: white; width: 4; align: center" visible="false"></a-entity>
+          </a-box>
+          <a-box class="clickable" details="A new chapter has started" 
+              position="0 3.5 9.9" width="2.2" height="4.2" depth="0.2" rotation="0 180 0" color="#3b3b3b" static-body>
+              <a-plane id="videoPlane" src="#vid4" position="0 0 0.11" width="2" height="4" material="shader: standard; roughness: 1"></a-plane>
+              <script>
+                    document.querySelector('#videoPlane').addEventListener('click', function () {
+                    const vid = document.querySelector('#vid4');
+                    vid.play();
+                });
+          </script>
+              <a-entity class="art-info" position="0 -2.5 0" text="The Return of the Prodigal Son: A poignant masterpiece by Rembrandt van Rijn; color: white; width: 4; align: center" visible="false"></a-entity>
+          </a-box>
+          <a-box class="clickable" details="2 / 11 / 2025" 
+              position="5 3.5 9.9" width="2.2" height="4.2" depth="0.2" rotation="0 180 0" color="#3b3b3b" static-body>
+              <a-plane src="#art4" position="0 0 0.11" width="2" height="4" material="shader: standard; roughness: 1"></a-plane>
+              <a-entity class="art-info" position="0 -2.5 0" text="Girl with a Pearl Earring: A captivating portrait by Johannes Vermeer; color: white; width: 4; align: center" visible="false"></a-entity>
+          </a-box>
+         </a-entity>
+
+        <!-- Player Rig for Movement -->
+        <a-entity id="cameraRig" position="0 1.6 5" movement-controls="speed: 0.02" gamepad-controls="fly: true; speed: 0.02ww">
+          <a-camera position="0 0 0" wasd-controls look-controls>
+              <a-cursor color="red" fuse="true"></a-cursor>
+          </a-camera>
+
+          <!-- VR Controllers -->
+          <a-entity oculus-touch-controls="hand: left" class="controller" controller-movement></a-entity>
+          <a-entity oculus-touch-controls="hand: right" class="controller"></a-entity> 
+        </a-entity>
+       
+    </a-scene>
+
+    <script src="script.js"></script>
+</body>
+</html>
