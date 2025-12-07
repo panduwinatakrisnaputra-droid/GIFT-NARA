@@ -9,13 +9,13 @@
     <script src="https://cdn.jsdelivr.net/npm/three@0.157.0/build/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/aframe-physics-system@4.0.1/dist/aframe-physics-system.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/aframe-gamepad-controls@0.1.0/dist/aframe-gamepad-controls.min.js"></script>
-    <audio controls autoplay loop>
-        <source src="audio/HER.mp3" type="audio/mpeg">
-        Browser Anda tidak mendukung elemen audio HTML5.
-    </audio>
+    <audio id="background-music" controls autoplay loop>
+    <source src="audio/HER.m4a" type="audio/mpeg">
+    Browser Anda tidak mendukung elemen audio HTML5.
+</audio>
 </head>
 <body>
-    <a-scene physics="debug: true">
+    <a-scene physics="debug: true" loading-screen="enabled: false">
         <!-- Preload Textures -->
         <a-assets>
             <img id="floorTexture" src="assets/texture/floor.jpg" />

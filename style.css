@@ -10,3 +10,9 @@ body, html {
     font-size: 16px;
     text-align: center;
 }
+audio {
+    position: fixed; /* Membuat elemen audio tetap di tempatnya */
+    top: 10px;       /* Posisikan di bagian atas layar */
+    right: 10px;
+    z-index: 1001;   /* Pastikan ia berada di atas canvas A-Frame (z-index 1000) */
+}
